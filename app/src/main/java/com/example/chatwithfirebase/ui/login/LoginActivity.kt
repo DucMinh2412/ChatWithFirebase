@@ -60,7 +60,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
     private fun openLoginScreen(){
         goScreen(
             HomeActivity::class.java,
-            false,
+            true,
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )

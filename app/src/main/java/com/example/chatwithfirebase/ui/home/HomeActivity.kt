@@ -92,7 +92,7 @@ class HomeActivity : BaseActivityGradient<ActivityHomeBinding, HomeViewModel>(),
     // token device return notification
     private fun tokenGetNotification(){
         firebaseMessaging.token.addOnCompleteListener { task -> sharedPreferencesManager.token = task.result }
-        firebaseMessaging.subscribeToTopic("/topics/${homeViewModel.getCurrentUserId()}")
+//        firebaseMessaging.subscribeToTopic("/topics/${homeViewModel.getCurrentUserId()}")
     }
 
     private fun searchUser(){

@@ -205,7 +205,10 @@ abstract class BaseActivityGradient<T : ViewDataBinding, V : BaseViewModel> :
 
     open fun getIdReceiver() : String? = intent.getStringExtra("idReceiver")
 
-    open fun launchIntent(intent: Intent, isFinish: Boolean, vararg aniInt: Int) {
+    open fun clearAllActivity(activityClazz: Class<*>, isFinish: Boolean, vararg aniInt: Int) {
+        val intent = Intent(this, activityClazz)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
         overridePendingTransition(aniInt[0], aniInt[1])
         if (isFinish) {

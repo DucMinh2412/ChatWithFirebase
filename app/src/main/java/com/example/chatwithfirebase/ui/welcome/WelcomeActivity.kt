@@ -55,7 +55,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding, WelcomeViewModel>()
     private fun openHomeScreen() {
         goScreen(
             HomeActivity::class.java,
-            false,
+            true,
             R.anim.slide_in_right,
             R.anim.slide_out_left
         )
