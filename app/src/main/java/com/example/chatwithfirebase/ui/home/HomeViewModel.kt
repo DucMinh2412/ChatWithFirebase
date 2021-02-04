@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.chatwithfirebase.base.BaseViewModel
 import com.example.chatwithfirebase.base.SingleLiveData
 import com.example.chatwithfirebase.data.model.User
+import com.example.chatwithfirebase.di.AppState
 import com.google.firebase.messaging.FirebaseMessaging
 import javax.inject.Inject
 
@@ -29,8 +30,6 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
     private fun getAllUserSuccess(userList: List<User>) {
         setLoading(false)
         liveDataUserList.value = userList
-        var userId = firebaseDataRepository.getCurrentUserId()
-        FirebaseMessaging.getInstance().subscribeToTopic("/topics/$userId")
     }
 
     private fun getAllUserError(t: Throwable) {
@@ -62,15 +61,15 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
         compositeDisposable.add(
             firebaseDataRepository.getInfoUser()
                 .compose(schedulerProvider.ioToMainObservableScheduler())
-                .subscribe(this::getInfoUserSuccess, this::getInfoUserSuccess)
+                .subscribe(this::getInfoUserSuccess, this::getInfoUserFailed)
         )
     }
 
     private fun getInfoUserSuccess(user: User) {
         liveDataInfoUser.value = user
-        sharedPreferencesManager.saveInfoUser(user.fullName,user.avatarUser)
-    }
-    private fun getInfoUserSuccess(t: Throwable) { liveDataInfoUser.value = null }
+        sharedPreferencesManager.saveInfoUser(user.fullName,user.avatarUser)}
+    private fun getInfoUserFailed(t: Throwable) { liveDataInfoUser.value = null }
 
     fun getCurrentUserId(): String = firebaseDataRepository.getCurrentUserId()
+
 }

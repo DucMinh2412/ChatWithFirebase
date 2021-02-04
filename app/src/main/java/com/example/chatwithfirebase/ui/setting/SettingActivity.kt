@@ -82,8 +82,8 @@ class SettingActivity : BaseActivityGradient<ActivitySettingBinding, SettingView
         goScreen(
             NotificationActivity::class.java,
             false,
-            R.anim.slide_out_left,
-            R.anim.slide_in_right
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
         )
     }
 

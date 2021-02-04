@@ -1,5 +1,7 @@
 package com.example.chatwithfirebase.di.component
 
+import android.util.Log
+import androidx.lifecycle.OnLifecycleEvent
 import com.example.chatwithfirebase.di.ChatWithFirebase
 import com.example.chatwithfirebase.di.module.ActivityModule
 import com.example.chatwithfirebase.di.module.ApiModule
@@ -23,7 +25,6 @@ import javax.inject.Singleton
         (AppModule::class),
     ]
 )
-
 
 @Singleton
 interface AppComponent {

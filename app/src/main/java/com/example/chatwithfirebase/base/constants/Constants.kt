@@ -17,6 +17,7 @@ object Constants {
     const val FULL_NAME = "FULL_NAME"
     const val URL_AVATAR = "URL_AVATAR"
     const val TOKEN = "TOKEN"
+    const val CHECKED = "CHECKED"
 
     // Notification
     const val BASE_URL = "https://fcm.googleapis.com"

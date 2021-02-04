@@ -13,7 +13,8 @@ import com.example.chatwithfirebase.base.constants.Constants
 class SharedPreferencesManager(context: Context) {
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
-            Constants.FILE_NAME, Activity.MODE_PRIVATE)
+        Constants.FILE_NAME, Activity.MODE_PRIVATE
+    )
 
     private val editor: SharedPreferences.Editor
 
@@ -34,6 +35,15 @@ class SharedPreferencesManager(context: Context) {
         return sharedPreferences.getInt(key, defaultValue)
     }
 
+    fun getBoolean(key: String?, defaultValue: Boolean): Boolean {
+        return sharedPreferences.getBoolean(key, false)
+    }
+
+    fun putConfig(key: String?, value: Boolean) {
+        editor.putBoolean(key, value)
+        editor.apply()
+    }
+
     private fun putConfig(key: String?, value: String?) {
         editor.putString(key, value)
         editor.apply()
@@ -50,29 +60,49 @@ class SharedPreferencesManager(context: Context) {
     }
 
     // USER
-    fun saveUser(firebaseUserUid: String?,email:String?) {
+    fun saveUser(firebaseUserUid: String?, email: String?) {
         putConfig(Constants.FIREBASE_USER_UID, firebaseUserUid)
         putConfig(Constants.EMAIL, email)
     }
 
-    fun getUser() : String = getString(Constants.FIREBASE_USER_UID, "")
-    fun getEmail() : String = getString(Constants.EMAIL, "")
-    fun removeUser() { removeConfig(Constants.FIREBASE_USER_UID) }
-    fun removeEmail() { removeConfig(Constants.EMAIL) }
+    fun getUser(): String = getString(Constants.FIREBASE_USER_UID, "")
+    fun getEmail(): String = getString(Constants.EMAIL, "")
+    fun removeUser() {
+        removeConfig(Constants.FIREBASE_USER_UID)
+    }
+
+    fun removeEmail() {
+        removeConfig(Constants.EMAIL)
+    }
 
     // INFO USER
-    fun saveInfoUser(fullName:String?,urlAvatar:String?){
+    fun saveInfoUser(fullName: String?, urlAvatar: String?) {
         putConfig(Constants.FULL_NAME, fullName)
         putConfig(Constants.URL_AVATAR, urlAvatar)
     }
 
     fun getFullName(): String = getString(Constants.FULL_NAME, "")
     fun getUrlAvatar(): String = getString(Constants.URL_AVATAR, "")
-    fun removeFullName() { removeConfig(Constants.FULL_NAME) }
-    fun removeUrlAvatar() { removeConfig(Constants.URL_AVATAR) }
+    fun removeFullName() {
+        removeConfig(Constants.FULL_NAME)
+    }
+
+    fun removeUrlAvatar() {
+        removeConfig(Constants.URL_AVATAR)
+    }
 
     // TOKEN
-    fun saveToken(token:String?){ putConfig(Constants.TOKEN, token) }
-    var token : String? = getString(Constants.TOKEN, "")
-    fun removeToken() { removeConfig(Constants.TOKEN) }
+    fun saveToken(token: String?) {
+        putConfig(Constants.TOKEN, token)
+    }
+
+    var token: String? = getString(Constants.TOKEN, "")
+    fun removeToken() {
+        removeConfig(Constants.TOKEN)
+    }
+
+    // checked
+    fun saveChecked(status:Boolean){ putConfig(Constants.CHECKED,status) }
+    fun getChecked() : Boolean? = getBoolean(Constants.CHECKED, false)
+    fun removeChecked() { removeConfig(Constants.CHECKED) }
 }

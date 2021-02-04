@@ -5,7 +5,7 @@ import com.example.chatwithfirebase.base.BaseViewModel
 import com.example.chatwithfirebase.utils.EmailUtil
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(): BaseViewModel() {
+class LoginViewModel @Inject constructor() : BaseViewModel() {
 
     companion object {
         // error
@@ -40,27 +40,29 @@ class LoginViewModel @Inject constructor(): BaseViewModel() {
 
             else -> {
                 compositeDisposable.add(
-                    firebaseAuthRepository.login(email.value!!,password.value!!)
+                    firebaseAuthRepository.login(email.value!!, password.value!!)
                         .compose(schedulerProvider.ioToMainCompletableScheduler())
-                        .subscribe(this::onLoginSuccessful, this::onLoginFailed))
+                        .subscribe(this::onLoginSuccessful, this::onLoginFailed)
+                )
             }
         }
     }
 
-    private fun onLoginSuccessful(){
+    private fun onLoginSuccessful() {
         setLoading(false)
-        sharedPreferencesManager.saveUser(firebaseAuthRepository.getCurrentUserId(),email.value)
+        sharedPreferencesManager.saveUser(firebaseAuthRepository.getCurrentUserId(), email.value)
         uiEventLiveData.value = LOGIN_SUCCESS
     }
 
-    private fun onLoginFailed(t:Throwable){
+    private fun onLoginFailed(t: Throwable) {
         setLoading(false)
         showError(t)
     }
 
-    fun getEmail() {
-        if(!sharedPreferencesManager.getEmail().isNullOrEmpty()){
-             email.value = sharedPreferencesManager.getEmail()
+    fun getEmail(): String? {
+        if (!sharedPreferencesManager.getEmail().isNullOrEmpty()) {
+            return sharedPreferencesManager.getEmail()
         }
+        return null
     }
 }

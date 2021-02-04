@@ -34,7 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>() {
             onBackPressed()
         }
 
-        loginViewModel.getEmail()
+        binding.edtEmail.setText( loginViewModel.getEmail())
         loginViewModel.uiEventLiveData.observe(this,{
             when(it){
                 LoginViewModel.ERROR_TYPE_EMAIL->

@@ -99,9 +99,11 @@ class MessageActivity : BaseActivityGradient<ActivityMessageBinding, MessageView
                 "READ_EXTERNAL_STORAGE",
                 Constants.READ_EXTERNAL_STORAGE
             )
+
             val intent = Intent()
-            intent.action = Intent.ACTION_GET_CONTENT
+            intent.action = Intent.ACTION_VIEW
             intent.type = "image/*"
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivityForResult(
                 Intent.createChooser(intent, R.string.pick_image.toString()),
                 438
@@ -121,11 +123,11 @@ class MessageActivity : BaseActivityGradient<ActivityMessageBinding, MessageView
     }
 
     private fun setStatusColor() {
-//        if (binding.tvStatus.text.toString() == "online") {
-//            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blue_61))
-//        } else {
-//            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.black))
-//        }
+        if (binding.tvStatus.text.toString() == "online") {
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blue_61))
+        } else {
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.gray_97))
+        }
     }
 
     private fun scrollLastPosition() {

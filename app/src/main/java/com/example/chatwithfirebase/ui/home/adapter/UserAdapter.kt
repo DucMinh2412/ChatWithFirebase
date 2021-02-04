@@ -56,7 +56,7 @@ class UserAdapter : BaseAdapter<User, BaseViewHolder>() {
            }
             else{
                binding.tvStatus.setTextColor(
-                   ContextCompat.getColor(binding.root.context,R.color.black))
+                   ContextCompat.getColor(binding.root.context,R.color.gray_97))
             }
         }
 

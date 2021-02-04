@@ -54,15 +54,21 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding, RegisterViewModel
                     ToastUtils.toastError(this,R.string.full_name,R.string.type_full_name)
 
                 RegisterViewModel.REGISTER_SUCCESS-> {
-                    ToastUtils.toastSuccess(this, R.string.login, R.string.success)
-                    goScreen(
-                        LoginActivity::class.java,
-                        false, R.anim.slide_in_right, R.anim.slide_out_left
-                    )
+                    ToastUtils.toastSuccess(this, R.string.register, R.string.success)
+                    openLoginScreen()
                 }
 
                 SHOW_ERROR ->  ToastUtils.toastError(this, R.string.error, registerViewModel.errorMessage)
             }
         })
+    }
+
+    private fun openLoginScreen(){
+        goScreen(
+            LoginActivity::class.java,
+            false,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 }
