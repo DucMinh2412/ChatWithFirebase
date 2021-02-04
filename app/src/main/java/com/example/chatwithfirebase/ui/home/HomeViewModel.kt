@@ -1,12 +1,9 @@
 package com.example.chatwithfirebase.ui.home
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.chatwithfirebase.base.BaseViewModel
 import com.example.chatwithfirebase.base.SingleLiveData
 import com.example.chatwithfirebase.data.model.User
-import com.example.chatwithfirebase.di.AppState
-import com.google.firebase.messaging.FirebaseMessaging
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor() : BaseViewModel() {
@@ -68,6 +65,7 @@ class HomeViewModel @Inject constructor() : BaseViewModel() {
     private fun getInfoUserSuccess(user: User) {
         liveDataInfoUser.value = user
         sharedPreferencesManager.saveInfoUser(user.fullName,user.avatarUser)}
+
     private fun getInfoUserFailed(t: Throwable) { liveDataInfoUser.value = null }
 
     fun getCurrentUserId(): String = firebaseDataRepository.getCurrentUserId()

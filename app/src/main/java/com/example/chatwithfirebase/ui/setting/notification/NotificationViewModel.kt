@@ -16,13 +16,11 @@ class NotificationViewModel @Inject constructor() : BaseViewModel() {
 
     fun isChecked(status:Boolean){
         if(status){
-            e("s",status.toString())
             uiEventLiveData.value = CHECKED
             sharedPreferencesManager.saveChecked(status)
         }
 
         else{
-            e("s",status.toString())
             uiEventLiveData.value = NOT_CHECKED
             sharedPreferencesManager.saveChecked(status)
         }

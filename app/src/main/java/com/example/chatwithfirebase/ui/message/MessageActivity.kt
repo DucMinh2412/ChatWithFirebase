@@ -100,14 +100,15 @@ class MessageActivity : BaseActivityGradient<ActivityMessageBinding, MessageView
                 Constants.READ_EXTERNAL_STORAGE
             )
 
-            val intent = Intent()
-            intent.action = Intent.ACTION_VIEW
-            intent.type = "image/*"
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivityForResult(
-                Intent.createChooser(intent, R.string.pick_image.toString()),
-                438
-            )
+            if (isCheckPermission) {
+                val intent = Intent()
+                intent.action = Intent.ACTION_GET_CONTENT
+                intent.type = "image/*"
+                startActivityForResult(
+                    Intent.createChooser(intent, R.string.pick_image.toString()),
+                    438
+                )
+            }
         }
 
         // camera
@@ -126,7 +127,7 @@ class MessageActivity : BaseActivityGradient<ActivityMessageBinding, MessageView
         if (binding.tvStatus.text.toString() == "online") {
             binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blue_61))
         } else {
-            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.gray_97))
+            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
     }
 

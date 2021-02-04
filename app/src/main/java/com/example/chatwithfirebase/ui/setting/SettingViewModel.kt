@@ -12,11 +12,6 @@ import javax.inject.Inject
 
 class SettingViewModel @Inject constructor() : BaseViewModel() {
 
-    companion object {
-        const val SAME_FULL_NAME = 5
-        const val SUCCESS = 6
-    }
-
     private val liveDataInfoUser = MutableLiveData<User>()
 
     // get info user
@@ -54,9 +49,6 @@ class SettingViewModel @Inject constructor() : BaseViewModel() {
     // update FullName
     fun updateFullName(fullName: String) {
         setLoading(true)
-        if (fullName == liveDataInfoUser.value!!.fullName) {
-            uiEventLiveData.value = SAME_FULL_NAME
-        }
         compositeDisposable.add(
             firebaseDataRepository.updateFullName(fullName)
                 .compose(schedulerProvider.ioToMainCompletableScheduler())

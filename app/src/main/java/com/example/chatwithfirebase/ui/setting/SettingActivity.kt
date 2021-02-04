@@ -50,9 +50,7 @@ class SettingActivity : BaseActivityGradient<ActivitySettingBinding, SettingView
             it?.let { binding.user = it }
         })
 
-        binding.rlNotification.setOnClickListener {
-            openNotificationScreen()
-        }
+        binding.rlNotification.setOnClickListener { openNotificationScreen() }
 
         binding.rlLogout.setOnClickListener {
             showActionDialog(
@@ -108,10 +106,13 @@ class SettingActivity : BaseActivityGradient<ActivitySettingBinding, SettingView
             "READ_EXTERNAL_STORAGE",
             Constants.READ_EXTERNAL_STORAGE
         )
-        val intent = Intent()
-        intent.action = Intent.ACTION_GET_CONTENT
-        intent.type = "image/*"
-        startActivityForResult(Intent.createChooser(intent, "Pick Image"), 438)
+        if (isCheckPermission) {
+            val intent = Intent()
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/*"
+            startActivityForResult(Intent.createChooser(intent, "Pick Image"), 438)
+        }
+
     }
 
     private fun updateAvatar() {
@@ -127,9 +128,11 @@ class SettingActivity : BaseActivityGradient<ActivitySettingBinding, SettingView
             bottomSheetDialog.setContentView(bindingBottomSheetDialog.root)
             bindingBottomSheetDialog.btnTakePhoto.setOnClickListener {
                 openCamera()
+                bottomSheetDialog.dismiss()
             }
             bindingBottomSheetDialog.btnSelectPicture.setOnClickListener {
                 openPhotoLibrary()
+                bottomSheetDialog.dismiss()
             }
             bottomSheetDialog.show()
 
@@ -167,12 +170,6 @@ class SettingActivity : BaseActivityGradient<ActivitySettingBinding, SettingView
             bindingDialog.btnCancel.setOnClickListener { dialog.dismiss() }
             dialog.show()
         }
-
-//        settingViewModel.uiEventLiveData.observe(this, {
-//            if (it == SettingViewModel.SAME_FULL_NAME) {
-//                ToastUtils.toastError(this, R.string.full_name, R.string.same_full_name)
-//            }
-//        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
