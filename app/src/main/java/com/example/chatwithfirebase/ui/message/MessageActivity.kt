@@ -121,11 +121,11 @@ class MessageActivity : BaseActivityGradient<ActivityMessageBinding, MessageView
     }
 
     private fun setStatusColor() {
-        if (binding.tvStatus.text.toString() == "online") {
-            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blue_61))
-        } else {
-            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.black))
-        }
+//        if (binding.tvStatus.text.toString() == "online") {
+//            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.blue_61))
+//        } else {
+//            binding.tvStatus.setTextColor(ContextCompat.getColor(this, R.color.black))
+//        }
     }
 
     private fun scrollLastPosition() {

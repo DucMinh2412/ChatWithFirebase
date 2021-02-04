@@ -32,39 +32,52 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding, WelcomeViewModel>()
 
     override fun updateUI(savedInstanceState: Bundle?) {
 
-        binding.btnCreateAccount.setOnClickListener {
-            goScreen(
-                RegisterActivity::class.java,
-                false,
-                R.anim.slide_in_right,
-                R.anim.slide_out_left
-            )
-        }
+        welcomeViewModel.checkUserAndAutoLogin()
 
-        binding.btnLogin.setOnClickListener {
-            goScreen(LoginActivity::class.java, false, R.anim.slide_in_right, R.anim.slide_out_left)
-        }
+        binding.btnCreateAccount.setOnClickListener { openRegisterScreen() }
+        binding.btnLogin.setOnClickListener { openLoginScreen() }
 
         welcomeViewModel.uiEventLiveData.observe(this, {
+            welcomeViewModel.setLoading(false)
             if (it == WelcomeViewModel.AUTO_LOGIN) {
-                Handler().postDelayed({
-                    autoLogin()
-                }, 2000)
+                autoLogin()
             }
         })
 
     }
 
     private fun autoLogin() {
-        welcomeViewModel.setLoading(false)
+        Handler().postDelayed({
+            openHomeScreen()
+        }, 2000)
+    }
+
+    private fun openHomeScreen() {
         goScreen(
             HomeActivity::class.java,
-            true, R.anim.slide_in_right, R.anim.slide_out_left
+            false,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
         )
     }
 
-    override fun onStart() {
-        super.onStart()
-        welcomeViewModel.checkUserAndAutoLogin()
+    private fun openRegisterScreen() {
+        goScreen(
+            RegisterActivity::class.java,
+            false,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
+
+    private fun openLoginScreen() {
+        goScreen(
+            LoginActivity::class.java,
+            false,
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
+    }
+
+
 }

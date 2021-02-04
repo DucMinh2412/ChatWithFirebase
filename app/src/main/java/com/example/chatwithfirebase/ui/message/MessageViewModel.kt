@@ -32,7 +32,6 @@ class MessageViewModel @Inject constructor() : BaseViewModel() {
     // get All Message
     fun liveDataGetAllMessage(): MutableLiveData<ArrayList<Message>> = liveDataListMessage
     fun getAllMessage(receiverId: String) {
-        setLoading(true)
         compositeDisposable.add(
             firebaseDataRepository.getAllMessage(receiverId)
                 .compose(schedulerProvider.ioToMainObservableScheduler())
@@ -41,16 +40,15 @@ class MessageViewModel @Inject constructor() : BaseViewModel() {
     }
 
     private fun getAllMessageSuccess(messageList: ArrayList<Message>) {
-        setLoading(false)
         liveDataListMessage.value = messageList
     }
 
     private fun getAllMessageError(t: Throwable) {
-        setLoading(false)
         liveDataListMessage.value = null
     }
 
     fun sendMessage(receiverId: String, message: String, avatarSender: String) {
+        setLoading(true)
         compositeDisposable.add(
             firebaseDataRepository.sendMessage(receiverId, message, avatarSender)
                 .compose(schedulerProvider.ioToMainCompletableScheduler())
